@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -50,6 +52,12 @@ class AppTest {
             }
         }
         assertTrue(idx >= 0 && idx < quote.size()-1 , "return true if successfully got a random quote from the json file ");
+    }
+    @Test
+    public void testAPI() throws IOException {
+        URL url = new URL("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        assertEquals(200, connection.getResponseCode(), String.valueOf(true));
     }
 
 }
